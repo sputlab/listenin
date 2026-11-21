@@ -210,8 +210,8 @@ dispositivo, che non viene mai inviata al server): ogni frequenza con coordinate
 - **Feed RSS/Atom** di nuove frequenze e recuperi, filtrabili per regione, provincia, banda o evento
   (`/feed?format=rss&regione=lombardia&evento=recuperi`).
 - **Open data**: copie complete in CSV e JSON, generate a mano (*Open data* o *Moderazione → Sistema*) e ogni 30
-  giorni in automatico, ultime 6 conservate. La licenza predefinita è l'ODbL 1.0 (`opendata.license`): **da confermare in
-  base agli accordi con le fonti dei dati**, in particolare inascolto.org.
+  giorni in automatico, ultime 6 conservate. La licenza dei dati è l'**ODbL 1.0**, confermata
+  (`opendata.license`); il codice resta sotto AGPL-3.0. Restano da verificare gli accordi con le fonti, in particolare inascolto.org.
 
 ### Interfaccia
 
@@ -483,7 +483,7 @@ Con la 0.6 sono presenti tutte le funzioni richieste nella specifica. Restano da
 - **Dati di inascolto.org**: il formato reale dell'esportazione non è mai stato visto; le colonne si riconoscono per nome
   ma la prima importazione va controllata. Non è previsto alcuno scraping (vedi sezione 3).
 - **Testi legali**: il disclaimer è quello del manuale (2008, con riferimenti da aggiornare); termini e informativa privacy
-  sono bozze da far rivedere. La **licenza open data** (ODbL predefinita) va confermata con gli accordi sulle fonti.
+  sono bozze da far rivedere. La **licenza open data** è l'ODbL 1.0 (confermata); vanno ancora verificati gli accordi con le fonti.
 - **Piano di banda 70 cm** (+1,6 MHz e +5 MHz): da confrontare con ARI/IARU; modificabile in `bandplan.rules`.
 - **Esportazioni CHIRP/OpenGD77**: tracciati ricostruiti dalla documentazione, non provati con i programmi reali.
 - **Ricevitori SDR**: formato KiwiSDR (`?f=`) non verificato; WebSDR di Twente confermato.
@@ -495,4 +495,4 @@ Con la 0.6 sono presenti tutte le funzioni richieste nella specifica. Restano da
 
 ListenIn è software libero rilasciato con la **GNU Affero General Public License v3.0** (AGPL-3.0): il testo completo è
 in [LICENSE](LICENSE). Chi offre il programma, anche modificato, come servizio in rete deve mettere a disposizione degli
-utenti il relativo codice sorgente. Le librerie e i dati di terze parti mantengono le proprie licenze (vedi *Dati e licenze*).
+utenti il relativo codice sorgente. I dati del database e gli open data sono invece rilasciati con la **Open Database License (ODbL) 1.0**. Le librerie e i dati di terze parti mantengono le proprie licenze (vedi *Dati e licenze*).
