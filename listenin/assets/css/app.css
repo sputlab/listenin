@@ -178,15 +178,24 @@ p { margin: 0 0 .8em; }
 .usernav .cta:hover { border-color: transparent; filter: brightness(1.05); }
 .usernav .badge { background: var(--signal); color: #2B1D00; border-radius: 999px; padding: 0 .4rem; font-size: .75rem; margin-left: .25rem; }
 
+.burger { display: none; background: none; border: 1px solid var(--panel-soft); color: var(--panel-ink); border-radius: var(--radius); width: 44px; height: 44px; padding: 0; cursor: pointer; align-items: center; justify-content: center; }
+.burger svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.burger:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+
 @media (max-width: 760px) {
-  .masthead { grid-template-columns: auto 1fr; padding: .5rem .75rem; gap: .4rem .6rem; }
-  .usernav { gap: .1rem; }
-  .usernav a, .usernav button { padding: .3rem .5rem; }
-  .usernav .long, .theme-btn .long { display: none; }
-  .usernav .short, .theme-btn .short { display: inline; }
-  .usernav .visually-hidden.short { display: inline; }
+  .masthead { grid-template-columns: 1fr auto; padding: .5rem .75rem; gap: .4rem .6rem; }
+  .burger { display: inline-flex; }
   .search { grid-column: 1 / -1; grid-row: 2; }
   .brand-name { font-size: 1.1rem; }
+  /* Menu a tendina: tutte le voci (account e sezioni) compaiono solo con il menu aperto. */
+  .usernav, .subnav { display: none; }
+  body.menu-open .usernav { display: flex; flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: .25rem; grid-column: 1 / -1; grid-row: 3; }
+  body.menu-open .subnav { display: flex; flex-direction: column; overflow: visible; padding-block: .25rem; }
+  body.menu-open .usernav a, body.menu-open .usernav button { justify-content: flex-start; text-align: left; padding: .35rem .75rem; }
+  body.menu-open .subnav a { border-bottom: 0; border-left: 3px solid transparent; }
+  body.menu-open .subnav a[aria-current="page"] { border-left-color: var(--signal); }
+  .usernav .short, .theme-btn .short { display: none !important; }
+  .usernav .long, .theme-btn .long { display: inline; }
 }
 
 /* ---------------- Striscia spettrale ---------------- */

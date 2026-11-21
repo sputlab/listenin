@@ -1,8 +1,8 @@
 // Conferma di ascolto (check-in) a un tocco, condivisa da ricerca, missioni e scheda.
-import { post } from './api.js?v=0.6.0';
-import { h, openModal, closeModal, toast, checkbox } from './dom.js?v=0.6.0';
-import { state } from './state.js?v=0.6.0';
-import { docLink } from './content.js?v=0.6.0';
+import { post } from './api.js?v=0.7.0';
+import { h, openModal, closeModal, toast, checkbox } from './dom.js?v=0.7.0';
+import { state } from './state.js?v=0.7.0';
+import { docLink } from './content.js?v=0.7.0';
 
 let onUserChange = () => {};
 export function bindCheckin(cb) { onUserChange = cb; }

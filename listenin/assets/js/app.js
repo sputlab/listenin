@@ -1,23 +1,23 @@
 // ListenIn — avvio dell'applicazione e instradamento (hash routing).
-import { get, setCsrf, BASE } from './api.js?v=0.6.0';
-import { $, h, clear, initModal, toast, closeModal, openModal } from './dom.js?v=0.6.0';
-import { state, indexServices, isModerator, isAdmin } from './state.js?v=0.6.0';
-import { openDoc } from './content.js?v=0.6.0';
-import { showSearch, renderFilters, refresh, resetFilters, bindActions, invalidate } from './views/search.js?v=0.6.0';
-import { showDetail, bindDetail } from './views/detail.js?v=0.6.0';
-import { showReport } from './views/report.js?v=0.6.0';
-import { showProposal } from './views/proposal.js?v=0.6.0';
-import { showLogin, showRegister, showVerify, showForgot, showReset, logout, bindAuth } from './views/auth.js?v=0.6.0';
-import { showAccount, bindAccount } from './views/account.js?v=0.6.0';
-import { showModeration, bindModeration } from './views/moderation.js?v=0.6.0';
-import { showStats } from './views/stats.js?v=0.6.0';
-import { showMissions } from './views/missions.js?v=0.6.0';
-import { showOpenData } from './views/opendata.js?v=0.6.0';
-import { showSites, showSite } from './views/sites.js?v=0.6.0';
-import { showSaved } from './views/saved.js?v=0.6.0';
-import { showNews, showNewsItem } from './views/news.js?v=0.6.0';
-import { bindCheckin } from './checkin.js?v=0.6.0';
-import { cycleTheme, currentTheme, themeLabel } from './theme.js?v=0.6.0';
+import { get, setCsrf, BASE } from './api.js?v=0.7.0';
+import { $, h, clear, initModal, toast, closeModal, openModal } from './dom.js?v=0.7.0';
+import { state, indexServices, isModerator, isAdmin } from './state.js?v=0.7.0';
+import { openDoc } from './content.js?v=0.7.0';
+import { showSearch, renderFilters, refresh, resetFilters, bindActions, invalidate } from './views/search.js?v=0.7.0';
+import { showDetail, bindDetail } from './views/detail.js?v=0.7.0';
+import { showReport } from './views/report.js?v=0.7.0';
+import { showProposal } from './views/proposal.js?v=0.7.0';
+import { showLogin, showRegister, showVerify, showForgot, showReset, logout, bindAuth } from './views/auth.js?v=0.7.0';
+import { showAccount, bindAccount } from './views/account.js?v=0.7.0';
+import { showModeration, bindModeration } from './views/moderation.js?v=0.7.0';
+import { showStats } from './views/stats.js?v=0.7.0';
+import { showMissions } from './views/missions.js?v=0.7.0';
+import { showOpenData } from './views/opendata.js?v=0.7.0';
+import { showSites, showSite } from './views/sites.js?v=0.7.0';
+import { showSaved } from './views/saved.js?v=0.7.0';
+import { showNews, showNewsItem } from './views/news.js?v=0.7.0';
+import { bindCheckin } from './checkin.js?v=0.7.0';
+import { cycleTheme, currentTheme, themeLabel } from './theme.js?v=0.7.0';
 
 const ROUTES = [
   [/^\/?$/, () => search()],
@@ -58,9 +58,16 @@ function markSubnav(path) {
   });
 }
 
+function setMenu(open) {
+  document.body.classList.toggle('menu-open', open);
+  const b = $('#burger');
+  if (b) { b.setAttribute('aria-expanded', String(open)); b.setAttribute('aria-label', open ? 'Chiudi il menu' : 'Apri il menu'); }
+}
+
 function route() {
   const path = decodeURIComponent(location.hash.replace(/^#/, '')) || '/';
   document.body.classList.remove('filters-open');
+  setMenu(false);
   markSubnav(path);
   for (const [re, fn, kind] of ROUTES) {
     const m = path.match(re);
@@ -120,6 +127,8 @@ async function onAuthChange(reload = false) {
 }
 
 async function boot() {
+  $('#burger').addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { setMenu(false); $('#burger').focus(); } });
   initModal();
   try {
     state.meta = await get('/meta');

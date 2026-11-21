@@ -1,4 +1,4 @@
-# ListenIn 0.6.0
+# ListenIn 0.7.0
 
 Database collaborativo per consultare, censire e aggiornare le frequenze radio. Consultazione pubblica senza
 registrazione, contributi moderati con storico completo, segnalazioni rapide, esportazione CSV e JSON.

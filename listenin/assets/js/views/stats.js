@@ -1,6 +1,6 @@
 // Statistiche aggregate e classifiche.
-import { get } from '../api.js?v=0.6.0';
-import { $, h, clear } from '../dom.js?v=0.6.0';
+import { get } from '../api.js?v=0.7.0';
+import { $, h, clear } from '../dom.js?v=0.7.0';
 
 const MONTHS = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
 const monthLabel = (ym) => MONTHS[Number(ym.slice(5, 7)) - 1] + ' ' + ym.slice(2, 4);

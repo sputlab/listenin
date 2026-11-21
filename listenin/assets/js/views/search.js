@@ -1,11 +1,11 @@
 // Ricerca: filtri combinabili, striscia spettrale, tabella risultati, esportazione.
-import { get, apiUrl } from '../api.js?v=0.6.0';
-import { $, h, clear, select, field, toast } from '../dom.js?v=0.6.0';
-import { mhz, date, plural, STATUS, RELIABILITY, locatorToLatLon, distanceLabel } from '../format.js?v=0.6.0';
-import { state, readUrl, writeUrl, queryString, shareUrl, isAdmin, currentQth, setTempQth } from '../state.js?v=0.6.0';
-import { createMapPanel } from './map.js?v=0.6.0';
-import { saveSearch, getSearch, favoriteProvinces, setFavoriteProvince, searchKey } from '../offline.js?v=0.6.0';
-import { quickCheckin } from '../checkin.js?v=0.6.0';
+import { get, apiUrl } from '../api.js?v=0.7.0';
+import { $, h, clear, select, field, toast } from '../dom.js?v=0.7.0';
+import { mhz, date, plural, STATUS, RELIABILITY, locatorToLatLon, distanceLabel } from '../format.js?v=0.7.0';
+import { state, readUrl, writeUrl, queryString, shareUrl, isAdmin, currentQth, setTempQth } from '../state.js?v=0.7.0';
+import { createMapPanel } from './map.js?v=0.7.0';
+import { saveSearch, getSearch, favoriteProvinces, setFavoriteProvince, searchKey } from '../offline.js?v=0.7.0';
+import { quickCheckin } from '../checkin.js?v=0.7.0';
 
 let lastQuery = null;
 let lastResult = null;

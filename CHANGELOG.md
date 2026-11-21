@@ -2,6 +2,12 @@
 
 Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.1.0/) e il versionamento semantico.
 
+## [0.7.0] - 2026-11-21
+
+### Modificato
+- Su schermi stretti tutte le voci di menu (account, tema e sezioni) sono raccolte in un **menu a burger**, apribile da
+  tastiera, richiudibile con Esc e chiuso automaticamente a ogni cambio di pagina.
+
 ## [0.6.0] - 2026-11-21
 
 ### Aggiunto

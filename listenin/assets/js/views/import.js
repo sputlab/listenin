@@ -1,7 +1,7 @@
 // Importazione dei dati dal pannello (per hosting senza accesso a terminale).
-import { get, post, upload, apiUrl } from '../api.js?v=0.6.0';
-import { h, clear, toast, checkbox, field, select } from '../dom.js?v=0.6.0';
-import { dateTime } from '../format.js?v=0.6.0';
+import { get, post, upload, apiUrl } from '../api.js?v=0.7.0';
+import { h, clear, toast, checkbox, field, select } from '../dom.js?v=0.7.0';
+import { dateTime } from '../format.js?v=0.7.0';
 
 const STAT_LABELS = [
   ['righe_lette', 'Righe lette'], ['righe_scartate', 'Righe scartate'], ['righe_unificate', 'Righe unificate (duplicati certi)'],

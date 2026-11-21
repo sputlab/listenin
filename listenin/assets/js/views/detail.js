@@ -1,11 +1,11 @@
 // Scheda completa di una frequenza, con storico delle revisioni e azioni.
-import { get, post, del } from '../api.js?v=0.6.0';
-import { h, clear, openModal, closeModal, toast } from '../dom.js?v=0.6.0';
-import { khz, bandwidth, date, dateTime, STATUS, REV_ACTION, RELIABILITY, distanceLabel, bearingDeg, compass, distanceKm } from '../format.js?v=0.6.0';
-import { state, isModerator, currentQth } from '../state.js?v=0.6.0';
-import { relBadge } from './search.js?v=0.6.0';
-import { quickCheckin } from '../checkin.js?v=0.6.0';
-import { createMap, estimateCoverageKm } from '../leaflet-loader.js?v=0.6.0';
+import { get, post, del } from '../api.js?v=0.7.0';
+import { h, clear, openModal, closeModal, toast } from '../dom.js?v=0.7.0';
+import { khz, bandwidth, date, dateTime, STATUS, REV_ACTION, RELIABILITY, distanceLabel, bearingDeg, compass, distanceKm } from '../format.js?v=0.7.0';
+import { state, isModerator, currentQth } from '../state.js?v=0.7.0';
+import { relBadge } from './search.js?v=0.7.0';
+import { quickCheckin } from '../checkin.js?v=0.7.0';
+import { createMap, estimateCoverageKm } from '../leaflet-loader.js?v=0.7.0';
 
 let actions = {};
 export function bindDetail(a) { actions = a; }

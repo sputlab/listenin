@@ -56,6 +56,9 @@ if (preg_match('#^frequenze/([a-z0-9-]+)(?:/([a-z0-9-]+))?(?:/([a-z0-9-]+))?/?$#
     <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M2 22 L8 22 L10 12 L13 27 L16 6 L19 25 L22 15 L24 22 L30 22" /></svg>
     <span class="brand-name"><?= $e($name) ?></span>
   </a>
+  <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="usernav mainnav" aria-label="Apri il menu">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
   <form class="search" role="search" id="search-form">
     <label for="q" class="visually-hidden">Cerca per frequenza, nominativo, ente o località</label>
     <input id="q" name="q" type="search" autocomplete="off" spellcheck="false"
@@ -64,7 +67,7 @@ if (preg_match('#^frequenze/([a-z0-9-]+)(?:/([a-z0-9-]+))?(?:/([a-z0-9-]+))?/?$#
   <nav class="usernav" id="usernav" aria-label="Account"></nav>
 </header>
 
-<nav class="subnav" aria-label="Sezioni">
+<nav class="subnav" id="mainnav" aria-label="Sezioni">
   <a href="#/" aria-current="page">Frequenze</a>
   <a href="#/missioni">Missioni di recupero</a>
   <a href="#/postazioni">Postazioni</a>
