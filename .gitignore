@@ -1,0 +1,7 @@
+.DS_Store
+*.zip
+listenin/app/config/config.php
+listenin/app/storage/cache/*
+listenin/app/storage/logs/*
+listenin/app/storage/import/*
+!listenin/app/storage/*/.gitkeep

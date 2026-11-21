@@ -1,0 +1,6 @@
+# Cartella privata: mai servita via web
+Require all denied
+<IfModule !mod_authz_core.c>
+  Order deny,allow
+  Deny from all
+</IfModule>

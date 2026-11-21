@@ -1,0 +1,24 @@
+﻿pagina;sezione;valore_letto;descrizione;area;motivo
+18;Polizia di Stato;75.9250;Polizia di Stato - Cisterna;LT;fuori banda (76.0000-79.5000 MHz)
+51;Polizia Municipale;184.5875;Polizia Locale - Beinasco;TO;fuori banda (150.0000-175.5000, 440.0000-470.0000 MHz)
+51;Polizia Municipale;180.7750;Polizia Locale - Bolzano;BZ;fuori banda (150.0000-175.5000, 440.0000-470.0000 MHz)
+54;Polizia Municipale;160.1260;Polizia Locale - Limena;PD;non coerente con la canalizzazione
+56;Polizia Municipale;167.4760;Polizia Locale - Roma;RM;non coerente con la canalizzazione
+57;Polizia Municipale;164.8760;Polizia Locale - San Donà di Piave;VE;non coerente con la canalizzazione
+58;Polizia Municipale;181.7500;Polizia Locale - Trento;TN;fuori banda (150.0000-175.5000, 440.0000-470.0000 MHz)
+58;Polizia Municipale;164.7760;Polizia Locale - Venezia;VE;non coerente con la canalizzazione
+62;AIB e Forestale;73.0000;Antincendio boschivo e Corpo Forestale - Brindisi;BR;fuori banda (150.0000-175.0000, 430.0000-470.0000 MHz)
+62;AIB e Forestale;73.0250;Antincendio boschivo e Corpo Forestale - Campobasso;CB;fuori banda (150.0000-175.0000, 430.0000-470.0000 MHz)
+82;Croci private e pubbliche assistenze;480.0125;Croce Rossa - Varedo;MI;fuori banda (150.0000-175.5000, 440.0000-470.0000 MHz)
+83;Emergenza sanitaria;181.5750;Emergenza Sanitaria 118 - Aosta;AO;fuori banda (150.0000-175.5000, 440.0000-470.0000 MHz)
+84;Emergenza sanitaria;172.7687;Emergenza Sanitaria 118 - Pordenone;PN;non coerente con la canalizzazione
+84;Emergenza sanitaria;173.7187;Emergenza Sanitaria 118 - Pordenone;PN;non coerente con la canalizzazione
+84;Emergenza sanitaria;165.6260;Ravenna Soccorso 118 - Ravenna;RA;non coerente con la canalizzazione
+84;Emergenza sanitaria;172.8060;Emergenze Sanitaria 118 - Trieste;TS;non coerente con la canalizzazione
+86;Elisoccorso;185.6500;Elisoccorso - Bologna (Reno);BO;fuori banda (150.0000-175.5000, 440.0000-470.0000 MHz)
+86;Elisoccorso;73.6750;Elisoccorso - Genova (Vigili del Fuoco);GE;fuori banda (150.0000-175.5000, 440.0000-470.0000 MHz)
+86;Elisoccorso;173.1260;Elisoccorso - Gorizia;GO;non coerente con la canalizzazione
+86;Elisoccorso;135.2500;Elisoccorso - Roma (Freq. aeronautica);RM;fuori banda (150.0000-175.5000, 440.0000-470.0000 MHz)
+89;Rifugi alpini;55.8600;Rifugio Mantova;BZ;fuori banda (140.0000-450.0000 MHz)
+116;Aeronautica militare;129.300134;VHF 120.125 122.100 123.300 129.300134.100 138.150 138.350;;non letta (formato non riconosciuto)
+120;Marina civile;158.5600;Capitaneria di Porto - Cagliari;CA;fuori banda (156.0000-157.5000, 160.6000-162.0500 MHz)

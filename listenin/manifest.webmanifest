@@ -1,0 +1,16 @@
+{
+  "name": "ListenIn — frequenze radio",
+  "short_name": "ListenIn",
+  "description": "Consultazione e aggiornamento collaborativo delle frequenze radio, anche senza copertura dati.",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#16324F",
+  "theme_color": "#16324F",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
