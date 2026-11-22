@@ -1,8 +1,8 @@
 // Accesso, registrazione, verifica email, recupero password.
-import { post } from '../api.js?v=0.8.0';
-import { $, h, clear, field, checkbox, showErrors, formData, busy, toast } from '../dom.js?v=0.8.0';
-import { state } from '../state.js?v=0.8.0';
-import { docLink } from '../content.js?v=0.8.0';
+import { post } from '../api.js?v=0.9.0';
+import { $, h, clear, field, checkbox, showErrors, formData, busy, toast } from '../dom.js?v=0.9.0';
+import { state } from '../state.js?v=0.9.0';
+import { docLink } from '../content.js?v=0.9.0';
 
 let onAuthChange = () => {};
 export function bindAuth(cb) { onAuthChange = cb; }

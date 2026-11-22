@@ -29,6 +29,11 @@ export function clear(el, ...children) {
   return el;
 }
 
+/** Avvolge una tabella in un contenitore con scorrimento orizzontale, raggiungibile anche da tastiera. */
+export function scrollTable(table, label = 'Tabella') {
+  return h('div', { class: 'table-scroll', role: 'region', tabindex: '0', 'aria-label': label + ' (scorrevole in orizzontale)' }, table);
+}
+
 export const $ = (sel, root = document) => root.querySelector(sel);
 export const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 

@@ -1,9 +1,9 @@
 // Modulo di proposta: nuova frequenza o modifica di un record esistente.
-import { get, post, put } from '../api.js?v=0.8.0';
-import { $, h, clear, field, select, checkbox, showErrors, busy, toast } from '../dom.js?v=0.8.0';
-import { mhz, parseFreq, locator } from '../format.js?v=0.8.0';
-import { state, isModerator } from '../state.js?v=0.8.0';
-import { docLink } from '../content.js?v=0.8.0';
+import { get, post, put } from '../api.js?v=0.9.0';
+import { $, h, clear, field, select, checkbox, showErrors, busy, toast } from '../dom.js?v=0.9.0';
+import { mhz, parseFreq, locator } from '../format.js?v=0.9.0';
+import { state, isModerator } from '../state.js?v=0.9.0';
+import { docLink } from '../content.js?v=0.9.0';
 
 const ALIASES = { freq_hz: 'freq', input_freq_hz: 'input_freq', offset_hz: 'offset_khz', bandwidth_hz: 'bandwidth_khz' };
 
