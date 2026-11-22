@@ -89,6 +89,7 @@ if (preg_match('#^frequenze/([a-z0-9-]+)(?:/([a-z0-9-]+))?(?:/([a-z0-9-]+))?/?$#
       <button type="button" class="icon-btn filters-close" id="filters-close" aria-label="Chiudi filtri">×</button>
     </div>
     <form id="filter-form" class="filter-form"></form>
+    <div class="filter-tools" id="filter-tools"></div>
   </aside>
   <main id="main" class="results" tabindex="-1">
     <div id="view"></div>
@@ -97,6 +98,7 @@ if (preg_match('#^frequenze/([a-z0-9-]+)(?:/([a-z0-9-]+))?(?:/([a-z0-9-]+))?/?$#
 
 <footer class="sitefoot">
   <p><?= $e($name) ?> <span class="ver">versione <?= $e($v) ?></span></p>
+  <div class="theme-switch" id="theme-switch"></div>
   <p class="foot-note">Dati aperti, curati dalla comunità di radioascolto.</p>
   <nav aria-label="Note legali">
     <a href="#/opendata">Open data</a>

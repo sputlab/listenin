@@ -1,7 +1,7 @@
 // Importazione dei dati dal pannello (per hosting senza accesso a terminale).
-import { get, post, upload, apiUrl } from '../api.js?v=0.8.0';
-import { h, clear, toast, checkbox, field, select } from '../dom.js?v=0.8.0';
-import { dateTime } from '../format.js?v=0.8.0';
+import { get, post, upload, apiUrl } from '../api.js?v=0.9.0';
+import { h, clear, toast, checkbox, field, select, scrollTable } from '../dom.js?v=0.9.0';
+import { dateTime } from '../format.js?v=0.9.0';
 
 const STAT_LABELS = [
   ['righe_lette', 'Righe lette'], ['righe_scartate', 'Righe scartate'], ['righe_unificate', 'Righe unificate (duplicati certi)'],
@@ -103,8 +103,8 @@ export async function showImport(panel) {
   function renderResult(st) {
     const r = st.report;
     const ok = st.status === 'done';
-    const stats = r ? h('table', { class: 'diff' }, h('tbody', {}, STAT_LABELS.filter(([k]) => (r.stats[k] ?? 0) > 0 || ['righe_lette', 'inseriti'].includes(k)).map(([k, l]) =>
-      h('tr', {}, h('td', {}, l + (st.dry_run && k === 'possibili_duplicati' ? ' (stima)' : '')), h('td', { class: 'num' }, (r.stats[k] || 0).toLocaleString('it-IT'))))) ) : null;
+    const stats = r ? scrollTable(h('table', { class: 'diff' }, h('tbody', {}, STAT_LABELS.filter(([k]) => (r.stats[k] ?? 0) > 0 || ['righe_lette', 'inseriti'].includes(k)).map(([k, l]) =>
+      h('tr', {}, h('td', {}, l + (st.dry_run && k === 'possibili_duplicati' ? ' (stima)' : '')), h('td', { class: 'num' }, (r.stats[k] || 0).toLocaleString('it-IT')))))), 'Esito importazione') : null;
     const services = r && Object.keys(r.per_servizio || {}).length
       ? h('details', {}, h('summary', {}, 'Nuovi record per servizio'), h('ul', { class: 'small' }, Object.entries(r.per_servizio).map(([k, n]) => h('li', {}, `${k}: ${n.toLocaleString('it-IT')}`))))
       : null;

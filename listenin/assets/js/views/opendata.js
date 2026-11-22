@@ -1,8 +1,8 @@
 // Archivio open data, feed e formati per gli apparati.
-import { get, post, apiUrl } from '../api.js?v=0.8.0';
-import { $, h, clear, toast } from '../dom.js?v=0.8.0';
-import { date } from '../format.js?v=0.8.0';
-import { isAdmin } from '../state.js?v=0.8.0';
+import { get, post, apiUrl } from '../api.js?v=0.9.0';
+import { $, h, clear, toast } from '../dom.js?v=0.9.0';
+import { date } from '../format.js?v=0.9.0';
+import { isAdmin } from '../state.js?v=0.9.0';
 
 const size = (n) => (n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB');
 

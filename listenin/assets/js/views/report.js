@@ -1,8 +1,8 @@
 // Segnalazione rapida su una frequenza: errore, aggiornamento, rimozione.
-import { post } from '../api.js?v=0.8.0';
-import { h, clear, openModal, closeModal, field, select, checkbox, showErrors, formData, busy, toast } from '../dom.js?v=0.8.0';
-import { state } from '../state.js?v=0.8.0';
-import { docLink } from '../content.js?v=0.8.0';
+import { post } from '../api.js?v=0.9.0';
+import { h, clear, openModal, closeModal, field, select, checkbox, showErrors, formData, busy, toast } from '../dom.js?v=0.9.0';
+import { state } from '../state.js?v=0.9.0';
+import { docLink } from '../content.js?v=0.9.0';
 
 const TYPES = [
   { value: 'errore', title: 'Errore nei dati', desc: 'Un campo è sbagliato: indica quale e il valore corretto.' },

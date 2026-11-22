@@ -1,23 +1,23 @@
 // ListenIn — avvio dell'applicazione e instradamento (hash routing).
-import { get, setCsrf, BASE } from './api.js?v=0.8.0';
-import { $, h, clear, initModal, toast, closeModal, openModal } from './dom.js?v=0.8.0';
-import { state, indexServices, isModerator, isAdmin } from './state.js?v=0.8.0';
-import { openDoc } from './content.js?v=0.8.0';
-import { showSearch, renderFilters, refresh, resetFilters, bindActions, invalidate } from './views/search.js?v=0.8.0';
-import { showDetail, bindDetail } from './views/detail.js?v=0.8.0';
-import { showReport } from './views/report.js?v=0.8.0';
-import { showProposal } from './views/proposal.js?v=0.8.0';
-import { showLogin, showRegister, showVerify, showForgot, showReset, logout, bindAuth } from './views/auth.js?v=0.8.0';
-import { showAccount, bindAccount } from './views/account.js?v=0.8.0';
-import { showModeration, bindModeration } from './views/moderation.js?v=0.8.0';
-import { showStats } from './views/stats.js?v=0.8.0';
-import { showMissions } from './views/missions.js?v=0.8.0';
-import { showOpenData } from './views/opendata.js?v=0.8.0';
-import { showSites, showSite } from './views/sites.js?v=0.8.0';
-import { showSaved } from './views/saved.js?v=0.8.0';
-import { showNews, showNewsItem } from './views/news.js?v=0.8.0';
-import { bindCheckin } from './checkin.js?v=0.8.0';
-import { cycleTheme, currentTheme, themeLabel } from './theme.js?v=0.8.0';
+import { get, setCsrf, BASE } from './api.js?v=0.9.0';
+import { $, h, clear, initModal, toast, closeModal, openModal } from './dom.js?v=0.9.0';
+import { state, indexServices, isModerator, isAdmin } from './state.js?v=0.9.0';
+import { openDoc } from './content.js?v=0.9.0';
+import { showSearch, renderFilters, refresh, resetFilters, bindActions, invalidate } from './views/search.js?v=0.9.0';
+import { showDetail, bindDetail } from './views/detail.js?v=0.9.0';
+import { showReport } from './views/report.js?v=0.9.0';
+import { showProposal } from './views/proposal.js?v=0.9.0';
+import { showLogin, showRegister, showVerify, showForgot, showReset, logout, bindAuth } from './views/auth.js?v=0.9.0';
+import { showAccount, bindAccount } from './views/account.js?v=0.9.0';
+import { showModeration, bindModeration } from './views/moderation.js?v=0.9.0';
+import { showStats } from './views/stats.js?v=0.9.0';
+import { showMissions } from './views/missions.js?v=0.9.0';
+import { showOpenData } from './views/opendata.js?v=0.9.0';
+import { showSites, showSite } from './views/sites.js?v=0.9.0';
+import { showSaved } from './views/saved.js?v=0.9.0';
+import { showNews, showNewsItem } from './views/news.js?v=0.9.0';
+import { bindCheckin } from './checkin.js?v=0.9.0';
+import { THEMES, applyTheme, currentTheme } from './theme.js?v=0.9.0';
 
 const ROUTES = [
   [/^\/?$/, () => search()],
@@ -91,6 +91,30 @@ async function showShortcuts() {
   openModal('Scorciatoie da tastiera', h('div', { class: 'help-keys' }, keys.flatMap(([k, d]) => [h('kbd', {}, k), h('span', {}, d)])));
 }
 
+const THEME_ICONS = {
+  auto: '<circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>',
+  light: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  dark: '<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>',
+  night: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+};
+
+/** Selettore del tema a sole icone, nel piè di pagina. */
+function renderThemeSwitch() {
+  const box = $('#theme-switch');
+  if (!box) return;
+  const draw = () => {
+    const cur = currentTheme();
+    clear(box, ...THEMES.map(([k, label]) => {
+      const b = h('button', { type: 'button', 'aria-pressed': String(k === cur), 'aria-label': 'Tema ' + label.toLowerCase(), title: 'Tema: ' + label, onclick: () => { applyTheme(k); draw(); } });
+      b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${THEME_ICONS[k]}</svg>`;
+      return b;
+    }));
+  };
+  box.setAttribute('role', 'group');
+  box.setAttribute('aria-label', 'Tema dell’interfaccia');
+  draw();
+}
+
 function renderNav() {
   const nav = $('#usernav');
   const items = [h('a', { href: '#/proponi', class: 'cta' }, h('span', { class: 'long' }, 'Aggiungi frequenza'), h('span', { class: 'short', 'aria-hidden': 'true' }, '+ Frequenza'), h('span', { class: 'visually-hidden short' }, 'Aggiungi frequenza'))];
@@ -109,13 +133,6 @@ function renderNav() {
   } else {
     items.push(h('a', { href: '#/accedi' }, 'Accedi'));
   }
-  const themeText = h('span', { class: 'long' }, 'Tema: ' + themeLabel(currentTheme()));
-  const themeBtn = h('button', { type: 'button', class: 'theme-btn', onclick: () => {
-    const t = cycleTheme();
-    themeText.textContent = 'Tema: ' + themeLabel(t);
-    themeBtn.setAttribute('aria-label', `Cambia tema (attuale: ${themeLabel(t)})`);
-  }, 'aria-label': `Cambia tema (attuale: ${themeLabel(currentTheme())})`, title: 'Alterna tra tema automatico, chiaro, scuro e notte' }, themeText, h('span', { class: 'short', 'aria-hidden': 'true' }, '◐'));
-  items.push(themeBtn);
   clear(nav, ...items);
 }
 
@@ -200,6 +217,7 @@ async function boot() {
   });
 
   renderNav();
+  renderThemeSwitch();
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname))) {
     navigator.serviceWorker.register(BASE + 'sw.js', { scope: BASE }).catch(() => { /* senza service worker l'app funziona comunque, solo non offline */ });
   }

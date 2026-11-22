@@ -1,11 +1,11 @@
 // Scheda completa di una frequenza, con storico delle revisioni e azioni.
-import { get, post, del } from '../api.js?v=0.8.0';
-import { h, clear, openModal, closeModal, toast } from '../dom.js?v=0.8.0';
-import { khz, bandwidth, date, dateTime, STATUS, REV_ACTION, RELIABILITY, distanceLabel, bearingDeg, compass, distanceKm } from '../format.js?v=0.8.0';
-import { state, isModerator, currentQth } from '../state.js?v=0.8.0';
-import { relBadge } from './search.js?v=0.8.0';
-import { quickCheckin } from '../checkin.js?v=0.8.0';
-import { createMap, estimateCoverageKm } from '../leaflet-loader.js?v=0.8.0';
+import { get, post, del } from '../api.js?v=0.9.0';
+import { h, clear, openModal, closeModal, toast, scrollTable } from '../dom.js?v=0.9.0';
+import { khz, bandwidth, date, dateTime, STATUS, REV_ACTION, RELIABILITY, distanceLabel, bearingDeg, compass, distanceKm } from '../format.js?v=0.9.0';
+import { state, isModerator, currentQth } from '../state.js?v=0.9.0';
+import { relBadge } from './search.js?v=0.9.0';
+import { quickCheckin } from '../checkin.js?v=0.9.0';
+import { createMap, estimateCoverageKm } from '../leaflet-loader.js?v=0.9.0';
 
 let actions = {};
 export function bindDetail(a) { actions = a; }
@@ -260,7 +260,7 @@ function wordDiff(a, b) {
 
 /** Tabella "Prima / Dopo": campi aggiunti in verde, rimossi in rosso, modificati con le parole variate evidenziate. */
 export function diffTable(changes, isCreate = false, withCurrent = false) {
-  return h('table', { class: 'diff' },
+  return scrollTable(h('table', { class: 'diff' },
     h('thead', {}, h('tr', {}, h('th', {}, 'Campo'), isCreate ? null : h('th', {}, 'Prima'), h('th', {}, 'Dopo'), withCurrent ? h('th', {}, 'Valore attuale') : null)),
     h('tbody', {}, changes.map((c) => {
       const kind = isCreate || c.old == null ? 'add' : (c.new == null ? 'del' : 'chg');
@@ -275,7 +275,7 @@ export function diffTable(changes, isCreate = false, withCurrent = false) {
         isCreate ? null : h('td', { class: 'old' }, oldN),
         h('td', { class: 'new' }, newN),
         withCurrent ? h('td', {}, (c.current ?? '—') + (c.stale ? ' (cambiato)' : '')) : null);
-    })));
+    }))), 'Modifiche proposte');
 }
 
 async function remove(id) {

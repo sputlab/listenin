@@ -1,5 +1,5 @@
 // Carica Leaflet (servito dal sito stesso, nessun CDN) solo quando serve una mappa.
-import { BASE } from './api.js?v=0.8.0';
+import { BASE } from './api.js?v=0.9.0';
 
 let promise = null;
 export function loadLeaflet() {

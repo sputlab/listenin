@@ -1,7 +1,7 @@
 // Stato condiviso dell'applicazione e sincronizzazione dei filtri con l'URL.
 
-import { locatorToLatLon } from './format.js?v=0.8.0';
-import { BASE } from './api.js?v=0.8.0';
+import { locatorToLatLon } from './format.js?v=0.9.0';
+import { BASE } from './api.js?v=0.9.0';
 
 export const state = {
   meta: null,

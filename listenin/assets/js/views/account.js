@@ -1,9 +1,9 @@
 // Account self-service: profilo, email, password, storico personale, eliminazione.
-import { webhooksPanel } from './webhooks.js?v=0.8.0';
-import { get, post, patch, apiUrl } from '../api.js?v=0.8.0';
-import { $, h, clear, field, showErrors, formData, busy, toast } from '../dom.js?v=0.8.0';
-import { dateTime, date, REV_STATUS, REV_ACTION, REPORT_TYPE, REPORT_STATUS, locator as toLocator } from '../format.js?v=0.8.0';
-import { state } from '../state.js?v=0.8.0';
+import { webhooksPanel } from './webhooks.js?v=0.9.0';
+import { get, post, patch, apiUrl } from '../api.js?v=0.9.0';
+import { $, h, clear, field, showErrors, formData, busy, toast } from '../dom.js?v=0.9.0';
+import { dateTime, date, REV_STATUS, REV_ACTION, REPORT_TYPE, REPORT_STATUS, locator as toLocator } from '../format.js?v=0.9.0';
+import { state } from '../state.js?v=0.9.0';
 
 let onAuthChange = () => {};
 export function bindAccount(cb) { onAuthChange = cb; }

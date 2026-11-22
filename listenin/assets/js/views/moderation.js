@@ -1,11 +1,11 @@
 // Pannello di moderazione: proposte, segnalazioni, utenti (solo amministratori).
-import { get, post, patch } from '../api.js?v=0.8.0';
-import { $, h, clear, field, select, openModal, closeModal, toast } from '../dom.js?v=0.8.0';
-import { dateTime, REV_STATUS, REV_ACTION, REPORT_TYPE, REPORT_STATUS } from '../format.js?v=0.8.0';
-import { state, isModerator, isAdmin } from '../state.js?v=0.8.0';
-import { diffTable } from './detail.js?v=0.8.0';
-import { showImport } from './import.js?v=0.8.0';
-import { newsAdmin } from './news.js?v=0.8.0';
+import { get, post, patch } from '../api.js?v=0.9.0';
+import { $, h, clear, field, select, openModal, closeModal, toast } from '../dom.js?v=0.9.0';
+import { dateTime, REV_STATUS, REV_ACTION, REPORT_TYPE, REPORT_STATUS } from '../format.js?v=0.9.0';
+import { state, isModerator, isAdmin } from '../state.js?v=0.9.0';
+import { diffTable } from './detail.js?v=0.9.0';
+import { showImport } from './import.js?v=0.9.0';
+import { newsAdmin } from './news.js?v=0.9.0';
 
 let refreshNav = () => {};
 export function bindModeration(cb) { refreshNav = cb; }

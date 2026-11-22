@@ -2,6 +2,17 @@
 
 Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.1.0/) e il versionamento semantico.
 
+## [0.9.0] - 2026-11-22
+
+### Modificato
+- Interfaccia mobile rivista: testata su una sola riga (marchio, ricerca, menu), menu a tendina compatto su due colonne
+  e voci di sezione presenti solo nel menu, non più anche sotto la testata.
+- Le tabelle (frequenze, preferiti, confronto, esito importazione) scorrono in orizzontale con la colonna della
+  frequenza sempre visibile; campi a 16 px per evitare lo zoom su iOS, finestre a tutto schermo, margini più stretti.
+- Il tema si sceglie con quattro icone nel piè di pagina (automatico, chiaro, scuro, notte) invece del pulsante nella barra.
+- Copia link, Salva offline ed Esporta sono nella sezione «Strumenti» della barra dei filtri.
+- Rimosso dalla homepage il banner dell'ultima notizia sopra i risultati.
+
 ## [0.8.0] - 2026-11-22
 
 ### Modificato

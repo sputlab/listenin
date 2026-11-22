@@ -1,9 +1,9 @@
 // Ricerche salvate per l'uso senza copertura dati.
-import { $, h, clear, toast, openModal } from '../dom.js?v=0.8.0';
-import { date, STATUS, RELIABILITY } from '../format.js?v=0.8.0';
-import { listSearches, deleteSearch } from '../offline.js?v=0.8.0';
-import { saveOfflineFor } from './search.js?v=0.8.0';
-import { relBadge } from './search.js?v=0.8.0';
+import { $, h, clear, toast, openModal, scrollTable } from '../dom.js?v=0.9.0';
+import { date, STATUS, RELIABILITY } from '../format.js?v=0.9.0';
+import { listSearches, deleteSearch } from '../offline.js?v=0.9.0';
+import { saveOfflineFor } from './search.js?v=0.9.0';
+import { relBadge } from './search.js?v=0.9.0';
 
 function itemModal(it) {
   const rows = [['Frequenza', it.freq_mhz + ' MHz' + (it.input_freq_mhz ? ' (ingresso ' + it.input_freq_mhz + ')' : '')], ['Modo', it.mode], ['Servizio', it.service.name],
@@ -26,7 +26,7 @@ function viewer(rec) {
     page = Math.min(page, pages);
     clear(box,
       h('p', { class: 'count', role: 'status' }, h('strong', {}, items.length.toLocaleString('it-IT')), ' frequenze'),
-      h('table', { class: 'freq-table' }, h('thead', {}, h('tr', {}, ['Frequenza', 'Modo', 'Descrizione', 'Località', 'Stato'].map((x) => h('th', { scope: 'col' }, x)))),
+      scrollTable(h('table', { class: 'freq-table' }, h('thead', {}, h('tr', {}, ['Frequenza', 'Modo', 'Descrizione', 'Località', 'Stato'].map((x) => h('th', { scope: 'col' }, x)))),
         h('tbody', {}, items.slice((page - 1) * per, page * per).map((it) => {
           const tr = h('tr', { tabindex: '0' },
             h('td', { class: 'f' }, h('div', { class: 'freq-value' }, it.freq_mhz, h('span', { class: 'unit' }, 'MHz'))), h('td', { class: 'm' }, h('span', { class: 'mode' }, it.mode)),
@@ -35,7 +35,7 @@ function viewer(rec) {
           tr.addEventListener('click', () => itemModal(it));
           tr.addEventListener('keydown', (e) => { if (e.key === 'Enter') itemModal(it); });
           return tr;
-        }))),
+        })))),
       pages > 1 ? h('nav', { class: 'pager' }, h('button', { type: 'button', class: 'btn small', disabled: page <= 1, onclick: () => { page--; draw(); } }, 'Precedenti'),
         h('span', { class: 'muted small' }, `Pagina ${page} di ${pages}`), h('button', { type: 'button', class: 'btn small', disabled: page >= pages, onclick: () => { page++; draw(); } }, 'Successive')) : null);
   };

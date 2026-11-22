@@ -1,5 +1,5 @@
 // Tema dell'interfaccia: automatico (segue il sistema), chiaro, scuro e "notte" (rosso ad alto contrasto per la visione notturna).
-const THEMES = [['auto', 'Automatico'], ['light', 'Chiaro'], ['dark', 'Scuro'], ['night', 'Notte']];
+export const THEMES = [['auto', 'Automatico'], ['light', 'Chiaro'], ['dark', 'Scuro'], ['night', 'Notte']];
 const KEY = 'rrf-theme';
 
 export function currentTheme() {

@@ -1,11 +1,11 @@
 // Ricerca: filtri combinabili, striscia spettrale, tabella risultati, esportazione.
-import { get, apiUrl } from '../api.js?v=0.8.0';
-import { $, h, clear, select, field, toast } from '../dom.js?v=0.8.0';
-import { mhz, date, plural, STATUS, RELIABILITY, locatorToLatLon, distanceLabel } from '../format.js?v=0.8.0';
-import { state, readUrl, writeUrl, queryString, shareUrl, isAdmin, currentQth, setTempQth } from '../state.js?v=0.8.0';
-import { createMapPanel } from './map.js?v=0.8.0';
-import { saveSearch, getSearch, favoriteProvinces, setFavoriteProvince, searchKey } from '../offline.js?v=0.8.0';
-import { quickCheckin } from '../checkin.js?v=0.8.0';
+import { get, apiUrl } from '../api.js?v=0.9.0';
+import { $, h, clear, select, field, toast, scrollTable } from '../dom.js?v=0.9.0';
+import { mhz, date, plural, STATUS, RELIABILITY, locatorToLatLon, distanceLabel } from '../format.js?v=0.9.0';
+import { state, readUrl, writeUrl, queryString, shareUrl, isAdmin, currentQth, setTempQth } from '../state.js?v=0.9.0';
+import { createMapPanel } from './map.js?v=0.9.0';
+import { saveSearch, getSearch, favoriteProvinces, setFavoriteProvince, searchKey } from '../offline.js?v=0.9.0';
+import { quickCheckin } from '../checkin.js?v=0.9.0';
 
 let lastQuery = null;
 let lastResult = null;
@@ -288,22 +288,6 @@ async function copyLink() {
   try { await navigator.clipboard.writeText(url); toast('Link copiato negli appunti.'); } catch { window.prompt('Copia il link:', url); }
 }
 
-// Ultima notizia pubblicata negli ultimi 14 giorni, in evidenza sopra i risultati
-let latestNews;
-async function newsBanner() {
-  if (latestNews === undefined) {
-    latestNews = null;
-    try {
-      const r = await get('/news?per_page=1');
-      const n = r.items[0];
-      if (n && (Date.now() - new Date(n.published_at.replace(' ', 'T')).getTime()) < 14 * 864e5) latestNews = n;
-    } catch { /* le notizie sono facoltative */ }
-    if (latestNews && $('#view .news-banner') === null && document.body.dataset.route === 'search') {
-      $('#view').prepend(h('p', { class: 'notice news-banner' }, h('strong', {}, latestNews.category_label + ': '), h('a', { href: '#/notizia/' + latestNews.slug }, latestNews.title)));
-    }
-  }
-}
-
 function favoritesBar() {
   const favs = favoriteProvinces();
   if (!favs.length) return null;
@@ -335,6 +319,18 @@ function exportMenu() {
       h('a', { href: feed('atom') }, 'Feed Atom', h('small', {}, 'stesso contenuto, formato Atom'))));
 }
 
+/** Azioni secondarie sui risultati (link, offline, esportazione): stanno nella barra laterale dei filtri. */
+function renderTools() {
+  const box = $('#filter-tools');
+  if (!box) return;
+  clear(box,
+    h('h3', { class: 'tools-title' }, 'Strumenti'),
+    h('div', { class: 'tools-row' },
+      h('button', { type: 'button', class: 'btn small', onclick: copyLink, title: 'Copia l’indirizzo di questa ricerca' }, 'Copia link'),
+      h('button', { type: 'button', class: 'btn small', onclick: saveOffline, title: 'Conserva questa ricerca sul dispositivo per usarla senza copertura dati' }, 'Salva offline')),
+    exportMenu());
+}
+
 function renderResults(data) {
   const view = $('#view');
   if (!data) return;
@@ -360,9 +356,6 @@ function renderResults(data) {
     h('p', { class: 'count', role: 'status' }, h('strong', {}, data.total.toLocaleString('it-IT')), data.total === 1 ? ' frequenza' : ' frequenze'),
     h('span', { class: 'spacer' }),
     sortSel,
-    h('button', { type: 'button', class: 'btn small', onclick: copyLink, title: 'Copia l’indirizzo di questa ricerca' }, 'Copia link'),
-    h('button', { type: 'button', class: 'btn small', onclick: saveOffline, title: 'Conserva questa ricerca sul dispositivo per usarla senza copertura dati' }, 'Salva offline'),
-    exportMenu(),
   );
   const banner = data.offline ? h('p', { class: 'notice', role: 'status' }, `Senza connessione: stai consultando la copia salvata il ${date(data.offline.savedAt.slice(0, 10))}`
     + (data.offline.total > data.offline.shown ? ` (prime ${data.offline.shown.toLocaleString('it-IT')} frequenze su ${data.offline.total.toLocaleString('it-IT')}).` : '.')) : null;
@@ -376,6 +369,7 @@ function renderResults(data) {
         isAdmin() && !Object.keys(state.filters).length ? h('a', { class: 'btn', href: '#/moderazione/importazione' }, 'Importa i dati') : null,
         h('a', { class: 'btn primary', href: '#/proponi' }, 'Aggiungi una frequenza'))));
     mapPanel.refresh();
+    renderTools();
     return;
   }
 
@@ -394,10 +388,9 @@ function renderResults(data) {
     h('span', { class: 'muted small' }, `Pagina ${data.page} di ${data.pages}`),
     h('button', { type: 'button', class: 'btn small', disabled: data.page >= data.pages, onclick: () => goPage(data.page + 1) }, 'Successive'));
 
-  clear(view, mapPanel.el, favoritesBar(), banner, toolbar, chips, table, data.pages > 1 ? pager : null);
+  clear(view, mapPanel.el, favoritesBar(), banner, toolbar, chips, h('p', { class: 'scroll-hint muted small', 'aria-hidden': 'true' }, 'Scorri la tabella di lato per vedere tutte le colonne →'), scrollTable(table, 'Frequenze trovate'), data.pages > 1 ? pager : null);
   mapPanel.refresh();
-  newsBanner();
-  if (latestNews && !$('#view .news-banner')) view.prepend(h('p', { class: 'notice news-banner' }, h('strong', {}, latestNews.category_label + ': '), h('a', { href: '#/notizia/' + latestNews.slug }, latestNews.title)));
+  renderTools();
 }
 
 export function relBadge(it) {
