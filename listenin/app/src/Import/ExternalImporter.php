@@ -7,10 +7,10 @@ namespace ListenIn\Import;
  * Importazione da riga di comando: stessa logica del pannello web (ImportEngine),
  * eseguita a passi fino al completamento.
  */
-final class InascoltoImporter
+final class ExternalImporter
 {
     public function __construct(
-        private readonly string $source = 'inascolto',
+        private readonly string $source = 'esterna',
         private readonly bool $dryRun = false,
         private readonly bool $updateExisting = true,
         private readonly ?int $limit = null,

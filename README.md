@@ -1,4 +1,4 @@
-# ListenIn 0.7.1
+# ListenIn 0.8.0
 
 Database collaborativo per consultare, censire e aggiornare le frequenze radio. Consultazione pubblica senza
 registrazione, contributi moderati con storico completo, segnalazioni rapide, esportazione CSV e JSON.
@@ -373,7 +373,7 @@ browser non resta bloccato su file vecchi. Chi modifica il codice deve cambiare 
 
 ### Script da terminale (facoltativi)
 
-Chi ha accesso SSH può usare `app/cli/`: `import_inascolto.php --file=… [--dry-run]`, `migrate.php`, `create_admin.php`,
+Chi ha accesso SSH può usare `app/cli/`: `import_esterno.php --file=… [--dry-run]`, `migrate.php`, `create_admin.php`,
 `maintenance.php`, `import_comuni_istat.php`. Eseguono la stessa logica del pannello.
 
 ---

@@ -250,7 +250,7 @@ CREATE TABLE listenin_frequencies (
   last_heard_at    DATE         NULL,
   notes            TEXT         NULL,
   -- Provenienza, versioning, ricerca
-  source           ENUM('manuale','inascolto','import') NOT NULL DEFAULT 'manuale',
+  source           ENUM('manuale','esterna','import') NOT NULL DEFAULT 'manuale',
   search_text      TEXT         NOT NULL,      -- testo denormalizzato per FULLTEXT
   version          INT UNSIGNED NOT NULL DEFAULT 1,
   created_by       INT UNSIGNED NULL,

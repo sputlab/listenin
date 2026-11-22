@@ -1,7 +1,7 @@
 // Importazione dei dati dal pannello (per hosting senza accesso a terminale).
-import { get, post, upload, apiUrl } from '../api.js?v=0.7.1';
-import { h, clear, toast, checkbox, field, select } from '../dom.js?v=0.7.1';
-import { dateTime } from '../format.js?v=0.7.1';
+import { get, post, upload, apiUrl } from '../api.js?v=0.8.0';
+import { h, clear, toast, checkbox, field, select } from '../dom.js?v=0.8.0';
+import { dateTime } from '../format.js?v=0.8.0';
 
 const STAT_LABELS = [
   ['righe_lette', 'Righe lette'], ['righe_scartate', 'Righe scartate'], ['righe_unificate', 'Righe unificate (duplicati certi)'],
@@ -24,7 +24,7 @@ export async function showImport(panel) {
   const out = h('div', { 'aria-live': 'polite' });
   const fileBox = h('div');
   const opts = { file: null };
-  const sourceSel = select('source', [{ value: 'inascolto', label: 'Fonte esterna' }, { value: 'altro', label: 'Altra fonte' }], 'inascolto');
+  const sourceSel = select('source', [{ value: 'esterna', label: 'Fonte esterna' }, { value: 'altro', label: 'Altra fonte' }], 'esterna');
   const update = checkbox('update', 'Aggiorna i record già importati se la fonte è cambiata (i record modificati dalla comunità non vengono mai sovrascritti)', true);
   const sourceField = field('Origine dei dati', sourceSel, { hint: 'Serve a riconoscere le stesse righe nelle importazioni successive.' });
   let busy = false;

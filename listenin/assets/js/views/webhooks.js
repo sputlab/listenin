@@ -1,8 +1,8 @@
 // Webhook personali: avvisi automatici (POST JSON firmato) per nuove frequenze e recuperi.
-import { get, post, put, del } from '../api.js?v=0.7.1';
-import { h, clear, field, select, toast, showErrors } from '../dom.js?v=0.7.1';
-import { dateTime } from '../format.js?v=0.7.1';
-import { state } from '../state.js?v=0.7.1';
+import { get, post, put, del } from '../api.js?v=0.8.0';
+import { h, clear, field, select, toast, showErrors } from '../dom.js?v=0.8.0';
+import { dateTime } from '../format.js?v=0.8.0';
+import { state } from '../state.js?v=0.8.0';
 
 const SNIPPET = `# Python: verifica della firma
 import hmac, hashlib

@@ -1,6 +1,6 @@
 // Testi legali: caricati dall'API e inseriti dopo una sanificazione ad allowlist.
-import { get, BASE } from './api.js?v=0.7.1';
-import { h, openModal, toast } from './dom.js?v=0.7.1';
+import { get, BASE } from './api.js?v=0.8.0';
+import { h, openModal, toast } from './dom.js?v=0.8.0';
 
 const ALLOWED = new Set(['P', 'H2', 'H3', 'UL', 'OL', 'LI', 'STRONG', 'EM', 'A', 'BR']);
 

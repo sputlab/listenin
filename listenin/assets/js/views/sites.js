@@ -1,10 +1,10 @@
 // Postazioni e monti: elenco, scheda con mappa e vista aggregata di tutti gli impianti installati nello stesso sito.
-import { get, put } from '../api.js?v=0.7.1';
-import { $, h, clear, field, select, toast, showErrors } from '../dom.js?v=0.7.1';
-import { date, STATUS } from '../format.js?v=0.7.1';
-import { state, isModerator } from '../state.js?v=0.7.1';
-import { createMap, estimateCoverageKm } from '../leaflet-loader.js?v=0.7.1';
-import { relBadge } from './search.js?v=0.7.1';
+import { get, put } from '../api.js?v=0.8.0';
+import { $, h, clear, field, select, toast, showErrors } from '../dom.js?v=0.8.0';
+import { date, STATUS } from '../format.js?v=0.8.0';
+import { state, isModerator } from '../state.js?v=0.8.0';
+import { createMap, estimateCoverageKm } from '../leaflet-loader.js?v=0.8.0';
+import { relBadge } from './search.js?v=0.8.0';
 
 export function showSites() {
   const view = $('#view');

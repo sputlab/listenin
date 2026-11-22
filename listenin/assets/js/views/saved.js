@@ -1,9 +1,9 @@
 // Ricerche salvate per l'uso senza copertura dati.
-import { $, h, clear, toast, openModal } from '../dom.js?v=0.7.1';
-import { date, STATUS, RELIABILITY } from '../format.js?v=0.7.1';
-import { listSearches, deleteSearch } from '../offline.js?v=0.7.1';
-import { saveOfflineFor } from './search.js?v=0.7.1';
-import { relBadge } from './search.js?v=0.7.1';
+import { $, h, clear, toast, openModal } from '../dom.js?v=0.8.0';
+import { date, STATUS, RELIABILITY } from '../format.js?v=0.8.0';
+import { listSearches, deleteSearch } from '../offline.js?v=0.8.0';
+import { saveOfflineFor } from './search.js?v=0.8.0';
+import { relBadge } from './search.js?v=0.8.0';
 
 function itemModal(it) {
   const rows = [['Frequenza', it.freq_mhz + ' MHz' + (it.input_freq_mhz ? ' (ingresso ' + it.input_freq_mhz + ')' : '')], ['Modo', it.mode], ['Servizio', it.service.name],

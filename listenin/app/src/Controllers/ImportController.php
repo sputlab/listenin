@@ -95,7 +95,7 @@ final class ImportController
         $v = new Validator($in);
         $kind = $v->enum('kind', ['incluso', 'caricato']);
         $name = $v->string('name', 1, 120);
-        $source = $v->string('source', 3, 32, false) ?? 'inascolto';
+        $source = $v->string('source', 3, 32, false) ?? 'esterna';
         if (!preg_match('/^[a-z0-9\-]{3,32}$/', $source)) {
             $v->addError('source', 'Nome della fonte non valido (lettere minuscole, numeri e trattini).');
         }

@@ -1,8 +1,8 @@
 // Cartina d'Italia in SVG puro: regioni e province, mappa coropletica, zoom sulla regione e filtro al clic.
 // Confini ISTAT al 1° gennaio 2026 (CC BY 4.0), semplificati; i colori derivano dai conteggi del database.
-import { get, BASE } from '../api.js?v=0.7.1';
-import { h, clear } from '../dom.js?v=0.7.1';
-import { state } from '../state.js?v=0.7.1';
+import { get, BASE } from '../api.js?v=0.8.0';
+import { h, clear } from '../dom.js?v=0.8.0';
+import { state } from '../state.js?v=0.8.0';
 
 const NS = 'http://www.w3.org/2000/svg';
 const svgEl = (tag, attrs = {}) => {

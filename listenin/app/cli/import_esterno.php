@@ -3,8 +3,8 @@
  * Importazione e normalizzazione dati da un export di una fonte esterna.
  *
  * Uso:
- *   php cli/import_inascolto.php --file=export.csv [--format=csv|json|html] [--dry-run]
- *        [--limit=N] [--no-update] [--source=inascolto] [--map=campo:"Colonna"] [--map=...]
+ *   php cli/import_esterno.php --file=export.csv [--format=csv|json|html] [--dry-run]
+ *        [--limit=N] [--no-update] [--source=esterna] [--map=campo:"Colonna"] [--map=...]
  *
  * Campi mappabili con --map: id, freq, mode, service, genere, region, area, status,
  * heard, notes, tone, locator, callsign, city.
@@ -19,7 +19,7 @@ if (PHP_SAPI !== 'cli') {
 }
 require dirname(__DIR__) . '/src/bootstrap.php';
 
-use ListenIn\Import\InascoltoImporter;
+use ListenIn\Import\ExternalImporter;
 
 $opts = getopt('', ['file:', 'format:', 'dry-run', 'limit:', 'no-update', 'source:', 'map:', 'help']);
 if (isset($opts['help']) || empty($opts['file'])) {
@@ -35,8 +35,8 @@ foreach ((array) ($opts['map'] ?? []) as $m) {
     }
 }
 
-$importer = new InascoltoImporter(
-    source: (string) ($opts['source'] ?? 'inascolto'),
+$importer = new ExternalImporter(
+    source: (string) ($opts['source'] ?? 'esterna'),
     dryRun: isset($opts['dry-run']),
     updateExisting: !isset($opts['no-update']),
     limit: isset($opts['limit']) ? max(1, (int) $opts['limit']) : null,

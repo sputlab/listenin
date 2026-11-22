@@ -173,7 +173,7 @@ final class ImportEngine
         $path = $o['path'];
         $format = $o['format'] ?? null;
         $ext = strtolower($format ?? pathinfo($path, PATHINFO_EXTENSION));
-        $source = (string) ($o['source'] ?? 'inascolto');
+        $source = (string) ($o['source'] ?? 'esterna');
         $dry = !empty($o['dry_run']);
         $runId = Database::insert('INSERT INTO listenin_import_runs (source, input_name, dry_run) VALUES (:s, :n, :d)',
             ['s' => $source, 'n' => mb_substr((string) ($o['file'] ?? basename($path)), 0, 255), 'd' => $dry ? 1 : 0]);
@@ -475,7 +475,7 @@ final class ImportEngine
                         $st['stats']['collegati_a_esistenti']++;
                     } else {
                         $res = RevisionService::propose(null, 'create', null, $logical, $comment, 'import', true, null, null,
-                            ['source' => $source === 'inascolto' ? 'inascolto' : 'import']);
+                            ['source' => $source === 'esterna' ? 'esterna' : 'import']);
                         $fid = (int) $res['frequency_id'];
                         $st['stats']['inseriti']++;
                         $st['by_service'][$logical['service']] = ($st['by_service'][$logical['service']] ?? 0) + 1;
