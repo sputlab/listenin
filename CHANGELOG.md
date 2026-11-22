@@ -7,7 +7,7 @@ Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.1.0/) e il v
 ### Modificato
 - La fonte delle importazioni esterne ha ora un nome neutro (`esterna`) nel database, nel pannello e nella riga di
   comando. Nuova migrazione `0007_fonte_esterna` che aggiorna i record esistenti.
-- Lo script da terminale `import_inascolto.php` diventa `import_esterno.php` (e la classe `ExternalImporter`).
+- Lo script da terminale si chiama ora `import_esterno.php` e la classe `ExternalImporter`.
 
 ## [0.7.1] - 2026-11-22
 
