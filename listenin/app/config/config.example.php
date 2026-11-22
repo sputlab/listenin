@@ -73,7 +73,7 @@ return [
     ],
     'opendata' => [
         'auto_days' => 30,   // ogni quanti giorni generare una nuova copia completa (0 = solo a mano)
-        // Licenza dei dati: ODbL 1.0 (confermata); verificare gli accordi con le fonti (es. inascolto.org)
+        // Licenza dei dati: ODbL 1.0 (confermata); verificare gli accordi con le fonti
         'license' => 'Open Database License (ODbL) 1.0',
         'license_url' => 'https://opendatacommons.org/licenses/odbl/1-0/',
     ],

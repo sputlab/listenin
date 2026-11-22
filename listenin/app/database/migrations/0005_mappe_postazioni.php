@@ -56,8 +56,8 @@ return static function (\PDO $pdo): void {
         UNIQUE KEY uq_site_slug (slug),
         KEY ix_site_key (name_key),
         KEY ix_site_province (province_id),
-        CONSTRAINT fk_site_province FOREIGN KEY (province_id) REFERENCES listenin_provinces (id) ON DELETE SET NULL,
-        CONSTRAINT fk_site_municipality FOREIGN KEY (municipality_id) REFERENCES listenin_municipalities (id) ON DELETE SET NULL
+        CONSTRAINT listenin_fk_site_province FOREIGN KEY (province_id) REFERENCES listenin_provinces (id) ON DELETE SET NULL,
+        CONSTRAINT listenin_fk_site_municipality FOREIGN KEY (municipality_id) REFERENCES listenin_municipalities (id) ON DELETE SET NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
 
     // frequenze: altitudine, postazione e posizione calcolata
@@ -69,7 +69,7 @@ return static function (\PDO $pdo): void {
     Migrator::addIndex('listenin_frequencies', 'ix_freq_geo', 'KEY ix_freq_geo (deleted_at, geo_lat, geo_lon)');
     Migrator::addIndex('listenin_frequencies', 'ix_freq_site', 'KEY ix_freq_site (site_id)');
     if (!Database::value("SELECT 1 FROM information_schema.table_constraints WHERE table_schema = DATABASE() AND table_name = 'listenin_frequencies' AND constraint_name = 'fk_freq_site'")) {
-        $x('ALTER TABLE listenin_frequencies ADD CONSTRAINT fk_freq_site FOREIGN KEY (site_id) REFERENCES listenin_sites (id) ON DELETE SET NULL');
+        $x('ALTER TABLE listenin_frequencies ADD CONSTRAINT listenin_fk_freq_site FOREIGN KEY (site_id) REFERENCES listenin_sites (id) ON DELETE SET NULL');
     }
 
     // posizione dei record già presenti: coordinate proprie, poi locatore, poi centro provincia

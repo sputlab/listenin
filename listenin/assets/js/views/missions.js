@@ -1,10 +1,10 @@
 // Missioni di recupero: frequenze contestate, da verificare o mai verificate nella provincia o regione scelta.
-import { get } from '../api.js?v=0.7.0';
-import { $, h, clear, field, select } from '../dom.js?v=0.7.0';
-import { date, STATUS, RELIABILITY } from '../format.js?v=0.7.0';
-import { state } from '../state.js?v=0.7.0';
-import { quickCheckin } from '../checkin.js?v=0.7.0';
-import { relBadge } from './search.js?v=0.7.0';
+import { get } from '../api.js?v=0.7.1';
+import { $, h, clear, field, select } from '../dom.js?v=0.7.1';
+import { date, STATUS, RELIABILITY } from '../format.js?v=0.7.1';
+import { state } from '../state.js?v=0.7.1';
+import { quickCheckin } from '../checkin.js?v=0.7.1';
+import { relBadge } from './search.js?v=0.7.1';
 
 export function showMissions() {
   const view = $('#view');

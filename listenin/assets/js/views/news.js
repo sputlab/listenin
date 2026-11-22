@@ -1,8 +1,8 @@
 // Notizie e aggiornamenti: elenco, lettura e gestione (amministratori).
-import { get, post, put, del, apiUrl } from '../api.js?v=0.7.0';
-import { $, h, clear, field, select, toast, showErrors } from '../dom.js?v=0.7.0';
-import { date } from '../format.js?v=0.7.0';
-import { isAdmin } from '../state.js?v=0.7.0';
+import { get, post, put, del, apiUrl } from '../api.js?v=0.7.1';
+import { $, h, clear, field, select, toast, showErrors } from '../dom.js?v=0.7.1';
+import { date } from '../format.js?v=0.7.1';
+import { isAdmin } from '../state.js?v=0.7.1';
 
 const CATS = { comunicazione: 'Comunicazione', bandplan: 'Piano di banda', importazione: 'Importazione' };
 

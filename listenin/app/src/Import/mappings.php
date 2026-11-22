@@ -1,6 +1,6 @@
 <?php
 /**
- * ListenIn — dizionari di armonizzazione per l'import da inascolto.org.
+ * ListenIn — dizionari di armonizzazione per l'import da fonti esterne.
  * Tutte le chiavi di confronto sono normalizzate con Normalizer::key()
  * (minuscolo, senza accenti, solo lettere/cifre separate da spazio).
  * File modificabile senza toccare il codice dell'importatore.

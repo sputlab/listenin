@@ -2,6 +2,15 @@
 
 Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.1.0/) e il versionamento semantico.
 
+## [0.7.1] - 2026-11-22
+
+### Corretto
+- Installazione: i nomi dei vincoli (chiavi esterne e controlli) hanno ora il prefisso `listenin_`, per evitare l'errore
+  1022 «duplicate key» quando il database contiene già vincoli con lo stesso nome.
+
+### Modificato
+- Rimossi dalla documentazione e dai testi dell'interfaccia i riferimenti a fonti esterne specifiche.
+
 ## [0.7.0] - 2026-11-21
 
 ### Modificato
@@ -61,7 +70,7 @@ Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.1.0/) e il v
   prima/dopo con evidenziazione delle parole variate, menu secondario.
 
 ### Modificato
-- Lo stato «Contestata» di inascolto.org viene importato come tale (prima diventava «da verificare»).
+- Lo stato «Contestata» della fonte esterna viene importato come tale (prima diventava «da verificare»).
 - Le revisioni di conferma ascolto (origine «checkin») proteggono il record dalla sovrascrittura delle importazioni.
 
 ## [0.3.2] - 2026-11-21

@@ -1,6 +1,6 @@
 <?php
 /**
- * Importazione e normalizzazione dati da un export di inascolto.org.
+ * Importazione e normalizzazione dati da un export di una fonte esterna.
  *
  * Uso:
  *   php cli/import_inascolto.php --file=export.csv [--format=csv|json|html] [--dry-run]
@@ -10,7 +10,7 @@
  * heard, notes, tone, locator, callsign, city.
  *
  * Consigliato: prima una simulazione (--dry-run), poi verificare il CSV dei duplicati in app/storage/import/.
- * Usare file esportati da inascolto.org con il consenso dei gestori del sito.
+ * Usare file esportati da fonti esterne con il consenso dei gestori del sito.
  */
 declare(strict_types=1);
 

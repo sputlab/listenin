@@ -1,4 +1,4 @@
-# ListenIn 0.7.0
+# ListenIn 0.7.1
 
 Database collaborativo per consultare, censire e aggiornare le frequenze radio. Consultazione pubblica senza
 registrazione, contributi moderati con storico completo, segnalazioni rapide, esportazione CSV e JSON.
@@ -33,7 +33,7 @@ Come sono stati letti i 125 PDF:
   scaricano dal pannello (*«scarica l'elenco da rivedere»*) o da `app/data/frequenze_da_rivedere.csv`, con pagina,
   descrizione e motivo, per verificarli a mano.
 - **Stato "da verificare"**: il manuale è del 2008 circa e molti servizi nel frattempo sono migrati (digitale,
-  TETRA). Tutti i record del manuale partono quindi come *da verificare*; se arriva una conferma da inascolto.org,
+  TETRA). Tutti i record del manuale partono quindi come *da verificare*; se arriva una conferma da una fonte esterna,
   il record diventa *attivo* con la data di ascolto.
 
 ---
@@ -82,7 +82,7 @@ Non dipende dall'installer: eliminare la cartella `install/` non la fa sparire. 
 account amministratore e svuota la cache del browser (Ctrl+F5, o una finestra anonima).
 
 1. **Scegli il file**: il manuale incluso, oppure carica un CSV, un file Excel (XLSX), un JSON o una tabella HTML
-   (es. l'esportazione di inascolto.org). Se il file supera il limite di caricamento del server, caricalo via FTP in
+   (l'esportazione di una fonte esterna). Se il file supera il limite di caricamento del server, caricalo via FTP in
    `app/storage/import/inbox/` e ricarica la pagina.
 2. **Simula**: fa tutto il lavoro tranne il salvataggio e mostra quanti record verrebbero creati e quali
    duplicati verrebbero uniti. Scarica anche l'elenco delle unificazioni (CSV) con testo originale e armonizzato.
@@ -105,18 +105,11 @@ non è presente vengono saltati e il pannello ne mostra il numero.
 Il download è consentito solo da siti elencati in `import.fetch_hosts` nel file di configurazione (predefinito:
 `www.istat.it`), solo in HTTPS, con dimensione e durata massime.
 
-### Come ottenere i dati di inascolto.org
+### Come ottenere dati da una fonte esterna
 
-Senza account il sito pubblica solo frequenza, modo, regione e stato: servizio, area e dettagli sono riservati agli
-utenti registrati. Per questo l'applicazione **non fa scraping**: un'estrazione pubblica darebbe record senza servizio,
-inutilizzabili, e una con account andrebbe concordata con i gestori. Strade percorribili, in ordine di preferenza:
-
-1. **Chiedere ai gestori un'esportazione** (CSV o JSON) con tutti i campi: è la via più completa e rispettosa dei
-   loro accordi. Una bozza di richiesta è nell'ultima risposta della conversazione di sviluppo.
-2. **Con un account registrato**, cercare nel sito se è presente l'esportazione dei risultati (*Ricerca → esporta*)
-   e caricare il file nel pannello.
-3. **Salvare le pagine dei risultati come HTML** (dopo l'accesso) e caricarle: viene letta la prima tabella con
-   intestazioni. È un lavoro manuale, adatto solo a piccoli insiemi.
+L'applicazione **non fa scraping**: i dati si caricano da un file ottenuto con il consenso dei gestori della fonte.
+Formati accettati: CSV, XLSX, JSON, oppure una tabella HTML salvata dalle pagine dei risultati (viene letta la prima
+tabella con intestazioni; è un lavoro manuale, adatto solo a piccoli insiemi).
 
 Se rilanci la stessa importazione, nulla viene duplicato. Le righe invariate restano com'erano, quelle cambiate
 alla fonte vengono aggiornate, i record modificati da utenti o moderatori ricevono solo i campi mancanti, e i
@@ -128,7 +121,7 @@ record rimossi da un moderatore non vengono ricreati.
 - **Descrizioni**: entità HTML, oltre 30 refusi ricorrenti, sigle sciolte in forma estesa (VVF → Vigili del Fuoco,
   VVUU → Polizia Locale, PS, GdF, CRI, CFS, FF.OO.…), maiuscole uniformi, "?" e "forse" trasformati in nota,
   "CESSATO"/"SPENTO" in stato inattivo. L'originale resta registrato.
-- **Servizio**: 76 regole calibrate sui dati reali di inascolto.org, poi il genere della fonte, poi la banda.
+- **Servizio**: 76 regole calibrate su dati reali, poi il genere della fonte, poi la banda.
 - **Geografia**: sigle singole o multiple, nomi di provincia, "Comune (XX)", regioni, aree storiche, nazioni estere;
   con i comuni ISTAT caricati anche i comuni.
 
@@ -211,7 +204,7 @@ dispositivo, che non viene mai inviata al server): ogni frequenza con coordinate
   (`/feed?format=rss&regione=lombardia&evento=recuperi`).
 - **Open data**: copie complete in CSV e JSON, generate a mano (*Open data* o *Moderazione → Sistema*) e ogni 30
   giorni in automatico, ultime 6 conservate. La licenza dei dati è l'**ODbL 1.0**, confermata
-  (`opendata.license`); il codice resta sotto AGPL-3.0. Restano da verificare gli accordi con le fonti, in particolare inascolto.org.
+  (`opendata.license`); il codice resta sotto AGPL-3.0. Restano da verificare gli accordi con le fonti.
 
 ### Interfaccia
 
@@ -423,7 +416,7 @@ Da rivedere prima della pubblicazione:
 
 - il disclaimer cita il "ministero delle comunicazioni" (oggi MIMIT) e un campo di 26–900 MHz;
 - `termini.html` e `privacy.html` sono bozze, con il titolare da completare;
-- i termini vanno integrati con il riferimento all'accordo con inascolto.org e all'attribuzione dei dati.
+- i termini vanno integrati con il riferimento agli accordi con le fonti e all'attribuzione dei dati.
 
 ## 11. Verifiche eseguite (PHP 8.3, MariaDB 10.11)
 
@@ -464,7 +457,7 @@ Da rivedere prima della pubblicazione:
 - Installazione guidata da browser su database nuovo, con errori di compilazione e password del database errata;
   blocco alla seconda visita.
 - Importazione del manuale dal pannello: simulazione e importazione vera, 4.929 record, nessun errore di validazione.
-- Sovrapposizione con un file di inascolto: righe collegate ai record del manuale, stato aggiornato ad "attivo",
+- Sovrapposizione con un file di una fonte esterna: righe collegate ai record del manuale, stato aggiornato ad "attivo",
   duplicati interni unificati.
 - Lettura di un file Excel generato come quello di ISTAT (titolo sopra la tabella, accenti, codici con zeri iniziali),
   download da un server locale autorizzato e rifiuto di indirizzi non consentiti, pagine HTML al posto del file,
@@ -480,7 +473,7 @@ dell'hosting (limiti di tempo, di memoria, permessi, invio email) va verificato 
 
 Con la 0.6 sono presenti tutte le funzioni richieste nella specifica. Restano da **verificare o decidere** da parte tua:
 
-- **Dati di inascolto.org**: il formato reale dell'esportazione non è mai stato visto; le colonne si riconoscono per nome
+- **Dati di fonti esterne**: il formato reale dell'esportazione non è mai stato visto; le colonne si riconoscono per nome
   ma la prima importazione va controllata. Non è previsto alcuno scraping (vedi sezione 3).
 - **Testi legali**: il disclaimer è quello del manuale (2008, con riferimenti da aggiornare); termini e informativa privacy
   sono bozze da far rivedere. La **licenza open data** è l'ODbL 1.0 (confermata); vanno ancora verificati gli accordi con le fonti.
@@ -496,3 +489,4 @@ Con la 0.6 sono presenti tutte le funzioni richieste nella specifica. Restano da
 ListenIn è software libero rilasciato con la **GNU Affero General Public License v3.0** (AGPL-3.0): il testo completo è
 in [LICENSE](LICENSE). Chi offre il programma, anche modificato, come servizio in rete deve mettere a disposizione degli
 utenti il relativo codice sorgente. I dati del database e gli open data sono invece rilasciati con la **Open Database License (ODbL) 1.0**. Le librerie e i dati di terze parti mantengono le proprie licenze (vedi *Dati e licenze*).
+

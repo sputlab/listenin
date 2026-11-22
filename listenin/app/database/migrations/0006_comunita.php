@@ -26,7 +26,7 @@ return static function (\PDO $pdo): void {
         PRIMARY KEY (id),
         UNIQUE KEY uq_news_slug (slug),
         KEY ix_news_pub (status, published_at),
-        CONSTRAINT fk_news_author FOREIGN KEY (author_id) REFERENCES listenin_users (id) ON DELETE SET NULL
+        CONSTRAINT listenin_fk_news_author FOREIGN KEY (author_id) REFERENCES listenin_users (id) ON DELETE SET NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
     // webhook configurati dagli utenti (il segreto di firma è conservato cifrato)
@@ -49,7 +49,7 @@ return static function (\PDO $pdo): void {
         PRIMARY KEY (id),
         KEY ix_webhook_user (user_id),
         KEY ix_webhook_active (active, region_id, province_id, itu_band_id),
-        CONSTRAINT fk_webhook_user FOREIGN KEY (user_id) REFERENCES listenin_users (id) ON DELETE CASCADE
+        CONSTRAINT listenin_fk_webhook_user FOREIGN KEY (user_id) REFERENCES listenin_users (id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
     $x("CREATE TABLE IF NOT EXISTS listenin_webhook_deliveries (
@@ -68,7 +68,7 @@ return static function (\PDO $pdo): void {
         PRIMARY KEY (id),
         KEY ix_delivery_due (status, next_attempt_at),
         KEY ix_delivery_hook (webhook_id, id),
-        CONSTRAINT fk_delivery_webhook FOREIGN KEY (webhook_id) REFERENCES listenin_webhooks (id) ON DELETE CASCADE
+        CONSTRAINT listenin_fk_delivery_webhook FOREIGN KEY (webhook_id) REFERENCES listenin_webhooks (id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
     // badge aggiuntivi

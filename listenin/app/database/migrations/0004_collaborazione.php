@@ -36,8 +36,8 @@ return static function (\PDO $pdo): void {
         KEY ix_checkin_freq (frequency_id, heard_on),
         KEY ix_checkin_user (user_id, created_at),
         KEY ix_checkin_recovered (recovered, created_at),
-        CONSTRAINT fk_checkin_frequency FOREIGN KEY (frequency_id) REFERENCES listenin_frequencies (id) ON DELETE CASCADE,
-        CONSTRAINT fk_checkin_user FOREIGN KEY (user_id) REFERENCES listenin_users (id) ON DELETE SET NULL
+        CONSTRAINT listenin_fk_checkin_frequency FOREIGN KEY (frequency_id) REFERENCES listenin_frequencies (id) ON DELETE CASCADE,
+        CONSTRAINT listenin_fk_checkin_user FOREIGN KEY (user_id) REFERENCES listenin_users (id) ON DELETE SET NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
 
     // registro dei punti reputazione
@@ -51,7 +51,7 @@ return static function (\PDO $pdo): void {
         PRIMARY KEY (id),
         KEY ix_points_user (user_id, created_at),
         KEY ix_points_reason (reason, created_at),
-        CONSTRAINT fk_points_user FOREIGN KEY (user_id) REFERENCES listenin_users (id) ON DELETE SET NULL
+        CONSTRAINT listenin_fk_points_user FOREIGN KEY (user_id) REFERENCES listenin_users (id) ON DELETE SET NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
 
     // badge
@@ -67,8 +67,8 @@ return static function (\PDO $pdo): void {
         badge_code VARCHAR(30) NOT NULL,
         awarded_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (user_id, badge_code),
-        CONSTRAINT fk_ub_user FOREIGN KEY (user_id) REFERENCES listenin_users (id) ON DELETE CASCADE,
-        CONSTRAINT fk_ub_badge FOREIGN KEY (badge_code) REFERENCES listenin_badges (code) ON DELETE CASCADE
+        CONSTRAINT listenin_fk_ub_user FOREIGN KEY (user_id) REFERENCES listenin_users (id) ON DELETE CASCADE,
+        CONSTRAINT listenin_fk_ub_badge FOREIGN KEY (badge_code) REFERENCES listenin_badges (code) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
     $x("INSERT IGNORE INTO listenin_badges (code, name, description, sort_order) VALUES
         ('primo-ascolto', 'Primo ascolto', 'Hai confermato il tuo primo ascolto.', 10),

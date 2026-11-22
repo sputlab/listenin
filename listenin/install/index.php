@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$blocked) {
             . '<ol><li><a href="' . e(rtrim($in['base_url'], '/')) . '/#/accedi">Accedi</a> con l\'email e la password dell\'amministratore.</li>'
             . ($csv ? '<li>Apri la voce <strong>Importazione</strong> del menu in alto (oppure Moderazione → Importazione) e importa i dati del manuale incluso: parti con una <em>simulazione</em>, poi importa davvero.</li>'
             . '<li>In <strong>Moderazione → Sistema</strong> premi «Importa i baricentri dei comuni»: abilita distanze e ricerca per prossimità.</li>' : '')
-            . '<li>Per i dati di inascolto.org: nella stessa schermata carica il file CSV esportato e ripeti simulazione e importazione.</li>'
+            . '<li>Per i dati di una fonte esterna: nella stessa schermata carica il file CSV esportato e ripeti simulazione e importazione.</li>'
             . '<li>Elimina l\'installer (pulsante qui sotto). <strong>Non toglie nulla</strong>: l\'importazione dei dati resta sempre disponibile agli amministratori in <em>Moderazione → Importazione</em> (e nel menu in alto alla voce “Importazione”).</li></ol>'
             . (!$https ? '<p class="err"><strong>Attenzione:</strong> stai usando HTTP. Attiva HTTPS sul tuo dominio, poi imposta <code>session.cookie_secure</code> a <code>true</code> in <code>app/config/config.php</code> e <code>https</code> in <code>app.base_url</code>.</p>' : '')
             . '<form method="post" action=""><input type="hidden" name="csrf" value="' . e(csrf()) . '"><input type="hidden" name="action" value="cleanup"><button>Elimina l\'installer</button></form></div>');

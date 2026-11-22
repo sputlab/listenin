@@ -5,7 +5,7 @@
  *  - Mai in cache: accesso, account, moderazione, amministrazione, esportazioni e tutte le richieste che modificano dati.
  *  - Le tessere della mappa (OpenStreetMap) non si conservano, come richiedono le regole d'uso di OSM.
  */
-const VERSION = '0.7.0';
+const VERSION = '0.7.1';
 const CACHE = `listenin-${VERSION}`;
 const BASE = new URL('./', self.location).pathname;           // es. /webapp/listenin/
 const SHELL_KEY = BASE + '__shell__';

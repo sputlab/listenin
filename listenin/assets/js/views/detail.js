@@ -1,11 +1,11 @@
 // Scheda completa di una frequenza, con storico delle revisioni e azioni.
-import { get, post, del } from '../api.js?v=0.7.0';
-import { h, clear, openModal, closeModal, toast } from '../dom.js?v=0.7.0';
-import { khz, bandwidth, date, dateTime, STATUS, REV_ACTION, RELIABILITY, distanceLabel, bearingDeg, compass, distanceKm } from '../format.js?v=0.7.0';
-import { state, isModerator, currentQth } from '../state.js?v=0.7.0';
-import { relBadge } from './search.js?v=0.7.0';
-import { quickCheckin } from '../checkin.js?v=0.7.0';
-import { createMap, estimateCoverageKm } from '../leaflet-loader.js?v=0.7.0';
+import { get, post, del } from '../api.js?v=0.7.1';
+import { h, clear, openModal, closeModal, toast } from '../dom.js?v=0.7.1';
+import { khz, bandwidth, date, dateTime, STATUS, REV_ACTION, RELIABILITY, distanceLabel, bearingDeg, compass, distanceKm } from '../format.js?v=0.7.1';
+import { state, isModerator, currentQth } from '../state.js?v=0.7.1';
+import { relBadge } from './search.js?v=0.7.1';
+import { quickCheckin } from '../checkin.js?v=0.7.1';
+import { createMap, estimateCoverageKm } from '../leaflet-loader.js?v=0.7.1';
 
 let actions = {};
 export function bindDetail(a) { actions = a; }
@@ -132,7 +132,7 @@ function renderDetail(body, f) {
     f.notes ? h('section', { class: 'detail-section' }, h('h3', {}, 'Note'), h('p', { class: 'prose' }, f.notes)) : null,
     h('section', { class: 'detail-section section' }, h('h3', {}, 'Storico'), historyBox),
     h('div', { class: 'actions' }, buttons),
-    h('p', { class: 'muted small' }, `Record n. ${f.id}, versione ${f.version}. Fonte: ${{ manuale: 'contributo della comunità', inascolto: 'importazione da inascolto.org', import: 'importazione' }[f.source] || f.source}`
+    h('p', { class: 'muted small' }, `Record n. ${f.id}, versione ${f.version}. Fonte: ${{ manuale: 'contributo della comunità', inascolto: 'importazione da fonte esterna', import: 'importazione' }[f.source] || f.source}`
       + (f.sources?.length ? ` (${f.sources.length > 1 ? 'record unificati' : 'record'} ${f.sources.map((s) => s.ref).join(', ')})` : '') + '.'));
 }
 

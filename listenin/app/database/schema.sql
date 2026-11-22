@@ -73,7 +73,7 @@ CREATE TABLE listenin_user_tokens (
   UNIQUE KEY uq_tokens_hash (token_hash),
   KEY ix_tokens_user_purpose (user_id, purpose),
   KEY ix_tokens_expires (expires_at),
-  CONSTRAINT fk_tokens_user FOREIGN KEY (user_id)
+  CONSTRAINT listenin_fk_tokens_user FOREIGN KEY (user_id)
     REFERENCES listenin_users (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -100,7 +100,7 @@ CREATE TABLE listenin_services (
   PRIMARY KEY (id),
   UNIQUE KEY uq_services_slug (slug),
   KEY ix_services_parent (parent_id, sort_order),
-  CONSTRAINT fk_services_parent FOREIGN KEY (parent_id)
+  CONSTRAINT listenin_fk_services_parent FOREIGN KEY (parent_id)
     REFERENCES listenin_services (id) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -125,7 +125,7 @@ CREATE TABLE listenin_itu_bands (
   PRIMARY KEY (id),
   UNIQUE KEY uq_itu_code (code),
   KEY ix_itu_range (min_hz, max_hz),
-  CONSTRAINT ck_itu_range CHECK (max_hz > min_hz)
+  CONSTRAINT listenin_ck_itu_range CHECK (max_hz > min_hz)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Segmenti del piano delle frequenze (IARU R1, nautico, aeronautico, ...)
@@ -139,8 +139,8 @@ CREATE TABLE listenin_band_plans (
   PRIMARY KEY (id),
   UNIQUE KEY uq_plans_slug (slug),
   KEY ix_plans_range (min_hz, max_hz),
-  CONSTRAINT ck_plans_range CHECK (max_hz > min_hz),
-  CONSTRAINT fk_plans_service FOREIGN KEY (service_id)
+  CONSTRAINT listenin_ck_plans_range CHECK (max_hz > min_hz),
+  CONSTRAINT listenin_fk_plans_service FOREIGN KEY (service_id)
     REFERENCES listenin_services (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -162,7 +162,7 @@ CREATE TABLE listenin_regions (
   PRIMARY KEY (id),
   UNIQUE KEY uq_regions_slug (slug),
   KEY ix_regions_country (country_iso2),
-  CONSTRAINT fk_regions_country FOREIGN KEY (country_iso2)
+  CONSTRAINT listenin_fk_regions_country FOREIGN KEY (country_iso2)
     REFERENCES listenin_countries (iso2) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -174,7 +174,7 @@ CREATE TABLE listenin_provinces (
   PRIMARY KEY (id),
   UNIQUE KEY uq_provinces_code (code),
   KEY ix_provinces_region (region_id),
-  CONSTRAINT fk_provinces_region FOREIGN KEY (region_id)
+  CONSTRAINT listenin_fk_provinces_region FOREIGN KEY (region_id)
     REFERENCES listenin_regions (id) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -190,7 +190,7 @@ CREATE TABLE listenin_municipalities (
   UNIQUE KEY uq_municipalities_prov_name (province_id, name_key),
   UNIQUE KEY uq_municipalities_istat (istat_code),
   KEY ix_municipalities_name_key (name_key),
-  CONSTRAINT fk_municipalities_province FOREIGN KEY (province_id)
+  CONSTRAINT listenin_fk_municipalities_province FOREIGN KEY (province_id)
     REFERENCES listenin_provinces (id) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -269,26 +269,26 @@ CREATE TABLE listenin_frequencies (
   KEY ix_freq_callsign (callsign),
   KEY ix_freq_updated (updated_at),
   FULLTEXT KEY ft_freq_search (search_text),
-  CONSTRAINT ck_freq_hz        CHECK (freq_hz BETWEEN 1000 AND 300000000000),
-  CONSTRAINT ck_freq_cc        CHECK (color_code IS NULL OR color_code <= 15),
-  CONSTRAINT ck_freq_ts        CHECK (dmr_timeslot IS NULL OR dmr_timeslot IN (1,2)),
-  CONSTRAINT ck_freq_ran       CHECK (ran IS NULL OR ran <= 63),
-  CONSTRAINT ck_freq_lat       CHECK (latitude IS NULL OR latitude BETWEEN -90 AND 90),
-  CONSTRAINT ck_freq_lon       CHECK (longitude IS NULL OR longitude BETWEEN -180 AND 180),
-  CONSTRAINT ck_freq_tone      CHECK (
+  CONSTRAINT listenin_ck_freq_hz        CHECK (freq_hz BETWEEN 1000 AND 300000000000),
+  CONSTRAINT listenin_ck_freq_cc        CHECK (color_code IS NULL OR color_code <= 15),
+  CONSTRAINT listenin_ck_freq_ts        CHECK (dmr_timeslot IS NULL OR dmr_timeslot IN (1,2)),
+  CONSTRAINT listenin_ck_freq_ran       CHECK (ran IS NULL OR ran <= 63),
+  CONSTRAINT listenin_ck_freq_lat       CHECK (latitude IS NULL OR latitude BETWEEN -90 AND 90),
+  CONSTRAINT listenin_ck_freq_lon       CHECK (longitude IS NULL OR longitude BETWEEN -180 AND 180),
+  CONSTRAINT listenin_ck_freq_tone      CHECK (
       (tone_type = 'none'  AND ctcss_hz IS NULL AND dcs_code IS NULL) OR
       (tone_type = 'ctcss' AND ctcss_hz IS NOT NULL AND dcs_code IS NULL) OR
       (tone_type = 'dcs'   AND dcs_code IS NOT NULL AND ctcss_hz IS NULL)),
-  CONSTRAINT fk_freq_mode        FOREIGN KEY (mode_id)         REFERENCES listenin_modes (id)          ON DELETE RESTRICT,
-  CONSTRAINT fk_freq_itu         FOREIGN KEY (itu_band_id)     REFERENCES listenin_itu_bands (id)      ON DELETE SET NULL,
-  CONSTRAINT fk_freq_plan        FOREIGN KEY (band_plan_id)    REFERENCES listenin_band_plans (id)     ON DELETE SET NULL,
-  CONSTRAINT fk_freq_service     FOREIGN KEY (service_id)      REFERENCES listenin_services (id)       ON DELETE RESTRICT,
-  CONSTRAINT fk_freq_country     FOREIGN KEY (country_iso2)    REFERENCES listenin_countries (iso2)    ON DELETE SET NULL,
-  CONSTRAINT fk_freq_region      FOREIGN KEY (region_id)       REFERENCES listenin_regions (id)        ON DELETE SET NULL,
-  CONSTRAINT fk_freq_province    FOREIGN KEY (province_id)     REFERENCES listenin_provinces (id)      ON DELETE SET NULL,
-  CONSTRAINT fk_freq_municipality FOREIGN KEY (municipality_id) REFERENCES listenin_municipalities (id) ON DELETE SET NULL,
-  CONSTRAINT fk_freq_entity      FOREIGN KEY (entity_id)       REFERENCES listenin_entities (id)       ON DELETE SET NULL,
-  CONSTRAINT fk_freq_creator     FOREIGN KEY (created_by)      REFERENCES listenin_users (id)          ON DELETE SET NULL
+  CONSTRAINT listenin_fk_freq_mode        FOREIGN KEY (mode_id)         REFERENCES listenin_modes (id)          ON DELETE RESTRICT,
+  CONSTRAINT listenin_fk_freq_itu         FOREIGN KEY (itu_band_id)     REFERENCES listenin_itu_bands (id)      ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_freq_plan        FOREIGN KEY (band_plan_id)    REFERENCES listenin_band_plans (id)     ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_freq_service     FOREIGN KEY (service_id)      REFERENCES listenin_services (id)       ON DELETE RESTRICT,
+  CONSTRAINT listenin_fk_freq_country     FOREIGN KEY (country_iso2)    REFERENCES listenin_countries (iso2)    ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_freq_region      FOREIGN KEY (region_id)       REFERENCES listenin_regions (id)        ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_freq_province    FOREIGN KEY (province_id)     REFERENCES listenin_provinces (id)      ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_freq_municipality FOREIGN KEY (municipality_id) REFERENCES listenin_municipalities (id) ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_freq_entity      FOREIGN KEY (entity_id)       REFERENCES listenin_entities (id)       ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_freq_creator     FOREIGN KEY (created_by)      REFERENCES listenin_users (id)          ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Copertura multi-provincia (es. "AL AT VC NO VB BI")
@@ -297,11 +297,11 @@ CREATE TABLE listenin_frequency_provinces (
   province_id   SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY (frequency_id, province_id),
   KEY ix_fp_province (province_id, frequency_id),
-  CONSTRAINT fk_fp_frequency FOREIGN KEY (frequency_id) REFERENCES listenin_frequencies (id) ON DELETE CASCADE,
-  CONSTRAINT fk_fp_province  FOREIGN KEY (province_id)  REFERENCES listenin_provinces (id)   ON DELETE CASCADE
+  CONSTRAINT listenin_fk_fp_frequency FOREIGN KEY (frequency_id) REFERENCES listenin_frequencies (id) ON DELETE CASCADE,
+  CONSTRAINT listenin_fk_fp_province  FOREIGN KEY (province_id)  REFERENCES listenin_provinces (id)   ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tracciabilità delle fonti: ogni record della fonte (es. id inascolto.org) punta al record
+-- Tracciabilità delle fonti: ogni record della fonte (es. id della fonte esterna) punta al record
 -- armonizzato. Più record sorgente duplicati confluiscono nello stesso record (deduplicazione).
 CREATE TABLE listenin_frequency_sources (
   id             INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -316,7 +316,7 @@ CREATE TABLE listenin_frequency_sources (
   PRIMARY KEY (id),
   UNIQUE KEY uq_fs_ref (source, source_ref),
   KEY ix_fs_frequency (frequency_id),
-  CONSTRAINT fk_fs_frequency FOREIGN KEY (frequency_id) REFERENCES listenin_frequencies (id) ON DELETE CASCADE
+  CONSTRAINT listenin_fk_fs_frequency FOREIGN KEY (frequency_id) REFERENCES listenin_frequencies (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------------------------------------------------------------------
@@ -343,9 +343,9 @@ CREATE TABLE listenin_revisions (
   KEY ix_rev_frequency (frequency_id, status, id),
   KEY ix_rev_author (author_id, created_at),
   KEY ix_rev_report (report_id),
-  CONSTRAINT fk_rev_frequency FOREIGN KEY (frequency_id) REFERENCES listenin_frequencies (id) ON DELETE CASCADE,
-  CONSTRAINT fk_rev_author    FOREIGN KEY (author_id)    REFERENCES listenin_users (id)       ON DELETE SET NULL,
-  CONSTRAINT fk_rev_reviewer  FOREIGN KEY (reviewer_id)  REFERENCES listenin_users (id)       ON DELETE SET NULL
+  CONSTRAINT listenin_fk_rev_frequency FOREIGN KEY (frequency_id) REFERENCES listenin_frequencies (id) ON DELETE CASCADE,
+  CONSTRAINT listenin_fk_rev_author    FOREIGN KEY (author_id)    REFERENCES listenin_users (id)       ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_rev_reviewer  FOREIGN KEY (reviewer_id)  REFERENCES listenin_users (id)       ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE listenin_revision_changes (
@@ -356,7 +356,7 @@ CREATE TABLE listenin_revision_changes (
   new_value    TEXT         NULL,
   PRIMARY KEY (id),
   UNIQUE KEY uq_change_field (revision_id, field),
-  CONSTRAINT fk_change_revision FOREIGN KEY (revision_id) REFERENCES listenin_revisions (id) ON DELETE CASCADE
+  CONSTRAINT listenin_fk_change_revision FOREIGN KEY (revision_id) REFERENCES listenin_revisions (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------------------------------------------------------------------
@@ -385,16 +385,16 @@ CREATE TABLE listenin_reports (
   KEY ix_reports_status_created (status, created_at),
   KEY ix_reports_frequency (frequency_id, status),
   KEY ix_reports_reporter (reporter_id, created_at),
-  CONSTRAINT ck_reports_removal CHECK (type <> 'rimozione' OR removal_reason IS NOT NULL),
-  CONSTRAINT fk_reports_frequency FOREIGN KEY (frequency_id)    REFERENCES listenin_frequencies (id) ON DELETE CASCADE,
-  CONSTRAINT fk_reports_duplicate FOREIGN KEY (duplicate_of_id) REFERENCES listenin_frequencies (id) ON DELETE SET NULL,
-  CONSTRAINT fk_reports_reporter  FOREIGN KEY (reporter_id)     REFERENCES listenin_users (id)       ON DELETE SET NULL,
-  CONSTRAINT fk_reports_handler   FOREIGN KEY (handled_by)      REFERENCES listenin_users (id)       ON DELETE SET NULL,
-  CONSTRAINT fk_reports_revision  FOREIGN KEY (revision_id)     REFERENCES listenin_revisions (id)   ON DELETE SET NULL
+  CONSTRAINT listenin_ck_reports_removal CHECK (type <> 'rimozione' OR removal_reason IS NOT NULL),
+  CONSTRAINT listenin_fk_reports_frequency FOREIGN KEY (frequency_id)    REFERENCES listenin_frequencies (id) ON DELETE CASCADE,
+  CONSTRAINT listenin_fk_reports_duplicate FOREIGN KEY (duplicate_of_id) REFERENCES listenin_frequencies (id) ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_reports_reporter  FOREIGN KEY (reporter_id)     REFERENCES listenin_users (id)       ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_reports_handler   FOREIGN KEY (handled_by)      REFERENCES listenin_users (id)       ON DELETE SET NULL,
+  CONSTRAINT listenin_fk_reports_revision  FOREIGN KEY (revision_id)     REFERENCES listenin_revisions (id)   ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 ALTER TABLE listenin_revisions
-  ADD CONSTRAINT fk_rev_report FOREIGN KEY (report_id) REFERENCES listenin_reports (id) ON DELETE SET NULL;
+  ADD CONSTRAINT listenin_fk_rev_report FOREIGN KEY (report_id) REFERENCES listenin_reports (id) ON DELETE SET NULL;
 
 -- ---------------------------------------------------------------------
 --  AUDIT E IMPORT
@@ -410,7 +410,7 @@ CREATE TABLE listenin_moderation_log (
   PRIMARY KEY (id),
   KEY ix_modlog_target (target_type, target_id),
   KEY ix_modlog_actor (actor_id, created_at),
-  CONSTRAINT fk_modlog_actor FOREIGN KEY (actor_id) REFERENCES listenin_users (id) ON DELETE SET NULL
+  CONSTRAINT listenin_fk_modlog_actor FOREIGN KEY (actor_id) REFERENCES listenin_users (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE listenin_import_runs (
